@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.7)
-project(TestTema)
+project(UTProjectTest)
 
 # add definitions
 add_definitions(-fprofile-arcs -ftest-coverage)
@@ -13,7 +13,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -g -O0 -Wall -fprofile-arcs -
 set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE ON)
 
 # Create OBJECT_DIR variable
-set(OBJECT_DIR ${CMAKE_BINARY_DIR}/CMakeFiles/TestTema.dir/src)
+set(OBJECT_DIR ${CMAKE_BINARY_DIR}/CMakeFiles/UTProjectTest.dir/src)
 message("-- Object files will be output to: ${OBJECT_DIR}")
 
 # Find required packages
@@ -22,6 +22,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 # Set the sources
 set(sources
+                src/test_main.cpp
                 src/AccountTest.cpp
                 ../src/Account.cpp
                 )
@@ -32,7 +33,7 @@ include_directories(
                 )
 
 # Create the executable
-add_executable(TestTema ${sources})
+add_executable(UTProjectTest ${sources})
 
 # Create the gcov target. Run coverage tests with 'make gcov'
 add_custom_target(gcov
@@ -47,7 +48,7 @@ add_custom_command(TARGET gcov
     COMMAND echo "-- Coverage files have been output to ${CMAKE_BINARY_DIR}/gcoverage"
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/gcoverage
     )
-add_dependencies(gcov TestTema)
+add_dependencies(gcov UTProjectTest)
 
 # Create the lcov target. Run result tests with 'make lcov'
 add_custom_target(lcov
@@ -76,13 +77,13 @@ add_custom_target(init
     )
 
 # Testing
-# enable_testing()
+enable_testing()
 
-# add_test(output_test ${CMAKE_CURRENT_BINARY_DIR}/TestTema)
+add_test(output_test ${CMAKE_CURRENT_BINARY_DIR}/UTProjectTest)
 
 # link Boost libraries to the new target
-target_link_libraries(TestTema gtest)
-target_link_libraries(TestTema gmock)
-target_link_libraries(TestTema pthread)
-target_link_libraries(TestTema -fprofile-arcs)
-# target_link_libraries(TestTema gcov)
+target_link_libraries(UTProjectTest gtest)
+target_link_libraries(UTProjectTest gmock)
+target_link_libraries(UTProjectTest pthread)
+target_link_libraries(UTProjectTest -fprofile-arcs)
+# target_link_libraries(UTProjectTest gcov)

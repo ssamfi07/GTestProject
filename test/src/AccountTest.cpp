@@ -40,17 +40,10 @@ TEST_F(AccountTest, transferFunds)
     account_->TransferFunds(*account_, 3.14);
 }
 
-// TEST_F_DISABLED(AccountTest, transferMinFunds)
-// {
-//     bank::Account newAccount(200);
-//     account_ = account_->TransferMinFunds(newAccount, 3.14);
-// }
+TEST_F(AccountTest, transferMinFunds)
+{
+    bank::Account newAccount(200);
+    account_->TransferMinFunds(newAccount, 3.14);
+}
 
 } // namespace gtest
-
-// runs the tests
-int main(int argc,char**argv)
-{
-    testing::InitGoogleTest(&argc, argv);
-        return RUN_ALL_TESTS();
-}

@@ -1,0 +1,30 @@
+#!/bin/bash
+
+echo "Starting the building process..."
+
+# build the source files
+cd src
+cmake -S .. -B build
+cd build
+make
+
+echo "Starting the test building process..."
+# navigate to the test directory and build the test files
+cd ../.. && cd test
+cmake -S . -B build
+cd build
+make init
+
+echo "Running gcov and generating the coverage reports with lcov..."
+# run gcov and create the coverage report
+make gcov
+make lcov
+
+echo "Display test logs..."
+cd Testing/Temporary
+cat LastTest.log
+
+echo "Open html file in chromium..."
+# open the html report file in chromium
+cd ../../lcoverage
+chromium "index.html" > /dev/null 2>&1  # no output

@@ -1,10 +1,11 @@
 cmake_minimum_required (VERSION 3.7)
 
-project(tema)
+project(UTProject)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
-add_executable(tema
+add_executable(UTProject
+                src/main.cpp
                 src/Account.cpp
                 )
 
