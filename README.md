@@ -14,7 +14,7 @@ A small project that implements Unit Testing in C++ using the gtest library
 Simply allow the bash script "run" and "clean-build" to be ran
 
 ```bash
-chmod +x script clean-build
+chmod +x run clean-build
 ```
 
 ```bash
