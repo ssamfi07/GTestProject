@@ -6,9 +6,13 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
 add_executable(UTProject
                 src/main.cpp
-                src/Account.cpp
+                src/Account/Account.cpp
+                src/Employee/Employee.cpp
                 )
 
 include_directories(
                 src/
+                src/Account
+                src/Utils
+                src/Employee
 )
