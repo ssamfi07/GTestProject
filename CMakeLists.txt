@@ -8,11 +8,13 @@ add_executable(UTProject
                 src/main.cpp
                 src/Account/Account.cpp
                 src/Employee/Employee.cpp
+                src/logger/Logger.cpp
                 )
 
 include_directories(
                 src/
                 src/Account
-                src/Utils
+                src/utils
+                src/logger
                 src/Employee
 )

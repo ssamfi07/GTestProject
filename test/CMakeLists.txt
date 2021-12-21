@@ -24,14 +24,18 @@ include_directories(${GTEST_INCLUDE_DIRS})
 set(sources
                 src/test_main.cpp
                 src/AccountTest.cpp
+                src/UseEmployeeTest.cpp
                 ../src/Account/Account.cpp
                 ../src/Employee/Employee.cpp
                 )
 # Set Include directories
 include_directories(
                 src/
+                input/
                 ../src/Account
                 ../src/Employee
+                ../src/utils
+                ../src/logger
                 )
 
 # Create the executable

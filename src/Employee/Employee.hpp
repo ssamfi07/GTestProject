@@ -1,17 +1,22 @@
 #ifndef EMPLOYEE_HPP
 #define EMPLOYEE_HPP
 
+#include <iostream>
+#include <string.h>
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
+
 class Staff
 {
-    int staff_id = 0;
-    char name[20] = "";
-    float salary = 0.0f;
+    boost::uuids::uuid employeeId_;
+    std::string employeeName_;
+    float salary_;
 
 public:
     Staff();
-    void accept();
+    Staff(std::string employeeName, float salary);
     void display();
-    friend void sort(char nm[], int n, Staff *s);
     void operator =(Staff s1);
 };
 
