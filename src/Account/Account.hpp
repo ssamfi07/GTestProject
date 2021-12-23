@@ -8,7 +8,7 @@ class Account
 {
     private:
         float balance_;
-        float minBalance_ = 10;
+        float minBalance_ = 10.0f;
     public:
         Account();
         Account(int value);

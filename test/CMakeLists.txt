@@ -2,31 +2,36 @@ cmake_minimum_required (VERSION 3.7)
 project(UTProjectTest)
 
 # add definitions
-add_definitions(-fprofile-arcs -ftest-coverage)
+add_definitions(-fprofile-arcs -ftest-coverage -lpthread -lboost_log -DBOOST_ALL_DYN_LINK)
 
 # Include diretories
 include_directories(/usr/include)
 link_directories(/usr/lib)
 
 # Set the compiler options
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -g -O0 -Wall -fprofile-arcs -ftest-coverage")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -g -O0 -Wall -fprofile-arcs -ftest-coverage -lboost_log -lpthread -DBOOST_ALL_DYN_LINK")
 set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE ON)
 
 # Create OBJECT_DIR variable
 set(OBJECT_DIR ${CMAKE_BINARY_DIR}/CMakeFiles/UTProjectTest.dir/src)
 message("-- Object files will be output to: ${OBJECT_DIR}")
 
-# Find required packages
+# Find required packages for gtest
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
+find_package(Boost COMPONENTS program_options log log_setup REQUIRED)
+set(PROJECT_LIB ${PROJECT_LIB} ${Boost_LOG_LIBRARY} ${Boost_LOG_SETUP_LIBRARY})
+
 
 # Set the sources
 set(sources
                 src/test_main.cpp
                 src/AccountTest.cpp
                 src/UseEmployeeTest.cpp
+                src/EmployeeTest.cpp
                 ../src/Account/Account.cpp
                 ../src/Employee/Employee.cpp
+                ../src/logger/Logger.cpp
                 )
 # Set Include directories
 include_directories(
@@ -88,8 +93,9 @@ enable_testing()
 add_test(output_test ${CMAKE_CURRENT_BINARY_DIR}/UTProjectTest)
 
 # link Boost libraries to the new target
+
+target_link_libraries(UTProjectTest ${PROJECT_LIB})
 target_link_libraries(UTProjectTest gtest)
 target_link_libraries(UTProjectTest gmock)
 target_link_libraries(UTProjectTest pthread)
 target_link_libraries(UTProjectTest -fprofile-arcs)
-# target_link_libraries(UTProjectTest gcov)

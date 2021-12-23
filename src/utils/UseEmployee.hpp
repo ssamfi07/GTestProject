@@ -6,8 +6,8 @@
 #include <vector>
 #include <functional>
 
-#include "../Employee/Employee.hpp"
-#include "../logger/Logger.hpp"
+#include "Employee.hpp"
+#include "Logger.hpp"
 
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
@@ -37,8 +37,7 @@ void UseEmployee::operateFile()
 
     if(!fin.is_open())
     {
-        ERROR << "Couldn't open file " << fileName;
-        std::cerr << "Could not open file " << fileName << std::endl;
+        LOG_ERROR << "Couldn't open file " << fileName;
         return;
     }
 

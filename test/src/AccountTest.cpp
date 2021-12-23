@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <stdexcept>
 #include "Account.hpp"
 
 // add stub and mocking
@@ -40,10 +41,35 @@ TEST_F(AccountTest, transferFunds)
     account_->TransferFunds(*account_, 3.14);
 }
 
-TEST_F(AccountTest, transferMinFunds)
+TEST_F(AccountTest, transferMinFundsPass)
 {
-    bank::Account newAccount(200);
-    account_->TransferMinFunds(newAccount, 3.14);
+    try
+    {
+        bank::Account newAccount(200);
+        account_->TransferMinFunds(newAccount, 3.14);
+    }
+    catch(std::exception& e)
+    {
+        EXPECT_EQ(e.what(), std::string("Not Enough Funds"));
+    }
+}
+
+TEST_F(AccountTest, transferMinFundsFails)
+{
+    account_->Withdraw(190);
+    try
+    {
+        bank::Account newAccount(200);
+        account_->TransferMinFunds(newAccount, 3.14);
+    }
+    catch(std::out_of_range const& e)
+    {
+        EXPECT_EQ(e.what(), std::string("Not Enough Funds"));
+    }
+    catch(...)
+    {
+        FAIL() << "Expected std::out_of_range";
+    }
 }
 
 } // namespace gtest

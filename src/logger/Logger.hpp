@@ -1,22 +1,28 @@
 #ifndef LOGGER_HPP
 #define LOGGER_HPP
 
-#include <boost/log/expressions.hpp>
-#include <boost/log/sources/global_logger_storage.hpp>
-#include <boost/log/support/date_time.hpp>
+
 #include <boost/log/trivial.hpp>
-#include <boost/log/utility/setup.hpp>
+#include <boost/log/sources/global_logger_storage.hpp>
 
-#define INFO  BOOST_LOG_SEV(my_logger::get(), boost::log::trivial::info)
-#define WARN  BOOST_LOG_SEV(my_logger::get(), boost::log::trivial::warning)
-#define ERROR BOOST_LOG_SEV(my_logger::get(), boost::log::trivial::error)
+// the logs are also written to LOGFILE
+#define LOGFILE "logfile.log"
 
-#define SYS_LOGFILE "output.log"
+// just log messages with severity >= SEVERITY_THRESHOLD are written
+#define SEVERITY_THRESHOLD logging::trivial::info
 
-//Narrow-char thread-safe logger.
-typedef boost::log::sources::severity_logger_mt<boost::log::trivial::severity_level> logger_t;
+// register a global logger
+BOOST_LOG_GLOBAL_LOGGER(logger, boost::log::sources::severity_logger_mt<boost::log::trivial::severity_level>)
 
-//declares a global logger with a custom initialization
-BOOST_LOG_GLOBAL_LOGGER(my_logger, logger_t)
+// just a helper macro used by the macros below - don't use it in your code
+#define LOG(severity) BOOST_LOG_SEV(logger::get(),boost::log::trivial::severity)
+
+// ===== log macros =====
+#define LOG_TRACE   LOG(trace)
+#define LOG_DEBUG   LOG(debug)
+#define LOG_INFO    LOG(info)
+#define LOG_WARNING LOG(warning)
+#define LOG_ERROR   LOG(error)
+#define LOG_FATAL   LOG(fatal)
 
 #endif // LOGGER_HPP

@@ -1,4 +1,5 @@
 #include "Employee.hpp"
+#include "Logger.hpp"
 
 Staff::Staff(): 
 employeeId_(boost::uuids::random_generator()()),
@@ -22,7 +23,6 @@ void Staff::operator =(Staff s1)
 
 void Staff::display()
 {
-    std::cout << "\n Employee Id : " << Staff::employeeId_;
-    std::cout << "\n Name : " << Staff::employeeName_;
-    std::cout << "\n Salary : " << Staff::salary_ << "\n";
+    LOG_INFO << "Employee Id : " << Staff::employeeId_ << "Name : " << Staff::employeeName_ 
+            << "Salary : " << Staff::salary_;
 }

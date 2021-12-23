@@ -17,8 +17,8 @@ make init
 
 echo "Running gcov and generating the coverage reports with lcov..."
 # run gcov and create the coverage report
-make gcov
-make lcov
+make gcov 
+make lcov > /dev/null 2>&1  # no output
 
 echo "Display test logs..."
 cd Testing/Temporary

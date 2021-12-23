@@ -1,7 +1,8 @@
-#include <exception>
+#include <stdexcept>
 #include <iostream>
 
 #include "Account.hpp"
+#include "Logger.hpp"
 
 namespace bank
 {
@@ -26,22 +27,21 @@ namespace bank
 
     Account Account::TransferMinFunds(Account& destination, float amount)
     {
-        std::cout << "smth";
+        LOG_INFO << __FUNCTION__ << this->balance_;
         try
         {
             if(balance_ - amount > minBalance_)
             {
                 Account::TransferFunds(destination, amount);
-                throw("Transfer Completed");
             }
             else
             {
-                throw ("Not Enough Funds");
+                throw std::out_of_range("Not Enough Funds");
             }
         }
-        catch(std::exception& e)
+        catch(std::out_of_range const& e)
         {
-            std::cout << e.what() << std::endl;
+            LOG_WARNING << e.what();
         }
         return destination;
     }
