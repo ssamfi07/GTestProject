@@ -1,5 +1,5 @@
-#ifndef USEEMPLOYEE_HPP
-#define USEEMPLOYEE_HPP
+#ifndef USEEMPLOYEES_HPP
+#define USEEMPLOYEES_HPP
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -8,29 +8,30 @@
 
 #include "Employee.hpp"
 #include "Logger.hpp"
+#include "HandleEmployees.hpp"
 
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 
 
-class UseEmployee
+class UseEmployees
 {
-    int EmployeeSize_;
-    std::vector<std::shared_ptr<Employee>> employees_;
+    std::shared_ptr<IHandleEmployees> employeeHandler_;
 public:
-    UseEmployee();
+    UseEmployees();
+    UseEmployees(const std::shared_ptr<IHandleEmployees>);
     void operateFile();
-    void displayEmployees();
+    void display();
 
     std::string filepath_;
 };
 
-UseEmployee::UseEmployee(): 
-EmployeeSize_(0),
-filepath_("in.txt")
+UseEmployees::UseEmployees(const std::shared_ptr<IHandleEmployees> employeeHandler):
+filepath_("in.txt"),
+employeeHandler_(employeeHandler)
 {}
 
-void UseEmployee::operateFile()
+void UseEmployees::operateFile()
 {
     std::string fileName(filepath_);
     std::ifstream fin(fileName);
@@ -55,21 +56,14 @@ void UseEmployee::operateFile()
         std::shared_ptr<Employee> employee = std::make_shared<Employee>(name, salary, account_);
         // add salary to initial balance
         employee->addSalary();
-        // push employee to vector
-        employees_.push_back(employee);
+        employeeHandler_->addEmployee(employee);
     }
-
-    EmployeeSize_ = employees_.size();
-
     fin.close();
 }
 
-void UseEmployee::displayEmployees()
+void UseEmployees::display()
 {
-    for(auto employee : employees_)
-    {
-        employee->display();
-    }
+    employeeHandler_->displayEmployees();
 }
 
 #endif // USEEMPLOYEE_HPP

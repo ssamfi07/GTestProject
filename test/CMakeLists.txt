@@ -27,8 +27,9 @@ set(PROJECT_LIB ${PROJECT_LIB} ${Boost_LOG_LIBRARY} ${Boost_LOG_SETUP_LIBRARY})
 set(sources
                 src/test_main.cpp
                 src/AccountTest.cpp
+                # src/EmployeesHandlerTest.cpp
                 src/EmployeeTest.cpp
-                src/UseEmployeeTest.cpp
+                src/UseEmployeesTest.cpp
                 ../src/Account/Account.cpp
                 ../src/Employee/Employee.cpp
                 ../src/logger/Logger.cpp
@@ -42,6 +43,7 @@ include_directories(
                 ../src/Employee
                 ../src/utils
                 ../src/logger
+                ../src/handlers
                 )
 
 # Create the executable
