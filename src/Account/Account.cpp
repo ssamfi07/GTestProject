@@ -11,12 +11,14 @@ namespace bank
 
     void Account::Deposit(float amount)
     {
+        // LOG_INFO << "Before " << __FUNCTION__ << " " << balance_;
         balance_ += amount;
     }
 
     void Account::Withdraw(float amount)
     {
         balance_ -= amount;
+        // LOG_INFO << "After " << __FUNCTION__ << " " << balance_;
     }
 
     void Account::TransferFunds(Account& destination, float amount)
@@ -27,7 +29,7 @@ namespace bank
 
     Account Account::TransferMinFunds(Account& destination, float amount)
     {
-        LOG_INFO << __FUNCTION__ << this->balance_;
+        // LOG_INFO << __FUNCTION__ << " " << this->balance_;
         try
         {
             if(balance_ - amount > minBalance_)

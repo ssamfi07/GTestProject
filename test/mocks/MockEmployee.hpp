@@ -14,6 +14,7 @@ class MockEmployee : public IEmployee
     public:
         MOCK_METHOD(void, display, (), (override));
         MOCK_METHOD(void, addSalary, (), (override));
+        MOCK_METHOD(void, substractTaxes, (), (override));
 };
 
 } // namespace gtest

@@ -28,21 +28,35 @@ class EmployeeTest : public::testing::Test
 
 TEST_F(EmployeeTest, createEmptyEmployee)
 {
+    EXPECT_EQ(nullptr, employee_);
     employee_ = std::make_shared<Employee>();
-    // employee_->display();
+    EXPECT_NE(employee_, nullptr);
 }
 
 TEST_F(EmployeeTest, displayEmployee)
 {
+    EXPECT_EQ(nullptr, employee_);
     employee_ = std::make_shared<Employee>("Gigel", 432.43, accountMock_);
+    EXPECT_NE(employee_, nullptr);
     employee_->display();
 }
 
 TEST_F(EmployeeTest, addSalary)
 {
+    EXPECT_EQ(nullptr, employee_);
     employee_ = std::make_shared<Employee>("Gigel", 432.43, accountMock_);
+    EXPECT_NE(employee_, nullptr);
     EXPECT_CALL(*accountMock_, Deposit(432.43)).Times(1);
     employee_->addSalary();
+}
+
+TEST_F(EmployeeTest, substractTaxes)
+{
+    EXPECT_EQ(nullptr, employee_);
+    employee_ = std::make_shared<Employee>("Gigel", 432.43, accountMock_);
+    EXPECT_NE(employee_, nullptr);
+    EXPECT_CALL(*accountMock_, Withdraw(43.243)).Times(1);
+    employee_->substractTaxes();
 }
 
 } // namespace gtest

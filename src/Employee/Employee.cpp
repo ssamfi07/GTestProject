@@ -27,3 +27,9 @@ void Employee::addSalary()
 {
     account_->Deposit(salary_);
 }
+
+void Employee::substractTaxes()
+{
+    // withdraws 10% of the salary as taxes
+    account_->Withdraw(salary_ / 10.0f);
+}

@@ -49,8 +49,13 @@ void UseEmployee::operateFile()
     {
         // read employee info and add to vector
         fin >> name >> salary >> balance;
+        // create account
         std::shared_ptr<bank::Account> account_ = std::make_shared<bank::Account>(balance);
+        // create employee
         std::shared_ptr<Employee> employee = std::make_shared<Employee>(name, salary, account_);
+        // add salary to initial balance
+        employee->addSalary();
+        // push employee to vector
         employees_.push_back(employee);
     }
 

@@ -23,6 +23,7 @@ public:
     Employee(std::string employeeName, float salary, std::shared_ptr<bank::IAccount> account);
     void display() override;
     void addSalary() override;
+    void substractTaxes() override;
 };
 
 #endif // EMPLOYEE_HPP

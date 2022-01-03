@@ -17,6 +17,7 @@ public:
     virtual ~IEmployee() = default;
     virtual void display() = 0;
     virtual void addSalary() = 0;
+    virtual void substractTaxes() = 0;
 };
 
 #endif // IEMPLOYEE_HPP

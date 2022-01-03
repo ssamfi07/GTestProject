@@ -3,12 +3,6 @@
 #include "gmock/gmock.h"
 
 #include "UseEmployee.hpp"
-#include "MockEmployee.hpp"
-
-// add stub and mocking
-
-using ::testing::AtLeast;
-using ::testing::_;
 
 namespace gtest 
 {
@@ -17,13 +11,11 @@ class UseEmployeeTest : public::testing::Test
 {
     protected:
         std::shared_ptr<UseEmployee> useEmployee_;
-        std::shared_ptr<MockEmployee> mockEmployee_;
         virtual ~UseEmployeeTest(){}
 
         virtual void SetUp() override
         {
             useEmployee_ = std::make_shared<UseEmployee>();
-            mockEmployee_ = std::make_shared<MockEmployee>();
         }
 
         virtual void TearDown()
@@ -33,18 +25,21 @@ class UseEmployeeTest : public::testing::Test
 
 TEST_F(UseEmployeeTest, operateFile)
 {
+    EXPECT_NE(useEmployee_, nullptr);
     useEmployee_->filepath_ = "/home/sstef/Documents/Faculta/tas/tema/GTestProject/input/in.txt";
     useEmployee_->operateFile();
 }
 
 TEST_F(UseEmployeeTest, operateFileFail)
 {
+    EXPECT_NE(useEmployee_, nullptr);
     useEmployee_->filepath_ = "./input/in.txt";
     useEmployee_->operateFile();
 }
 
 TEST_F(UseEmployeeTest, displayStaff)
 {
+    EXPECT_NE(useEmployee_, nullptr);
     useEmployee_->filepath_ = "/home/sstef/Documents/Faculta/tas/tema/GTestProject/input/in.txt";
     useEmployee_->operateFile();
     useEmployee_->displayEmployees();

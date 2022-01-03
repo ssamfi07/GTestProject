@@ -37,6 +37,7 @@ set(sources
 include_directories(
                 src/
                 input/
+                mocks/
                 ../src/Account
                 ../src/Employee
                 ../src/utils
