@@ -2,14 +2,14 @@ cmake_minimum_required (VERSION 3.7)
 project(UTProjectTest)
 
 # add definitions
-add_definitions(-fprofile-arcs -ftest-coverage -lpthread -lboost_log -DBOOST_ALL_DYN_LINK)
+add_definitions(-lgtest -lm -fprofile-arcs -ftest-coverage -lpthread -lboost_log -DBOOST_ALL_DYN_LINK)
 
 # Include diretories
 include_directories(/usr/include)
-link_directories(/usr/lib)
+link_directories(/usr/local/lib)
 
 # Set the compiler options
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -g -O0 -Wall -fprofile-arcs -ftest-coverage -lboost_log -lpthread -DBOOST_ALL_DYN_LINK")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -g -O0 -Wall -lgtest -fprofile-arcs -ftest-coverage -lboost_log -DBOOST_ALL_DYN_LINK -lpthread -lm")
 set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE ON)
 
 # Create OBJECT_DIR variable
@@ -27,8 +27,8 @@ set(PROJECT_LIB ${PROJECT_LIB} ${Boost_LOG_LIBRARY} ${Boost_LOG_SETUP_LIBRARY})
 set(sources
                 src/test_main.cpp
                 src/AccountTest.cpp
-                src/UseEmployeeTest.cpp
                 src/EmployeeTest.cpp
+                src/UseEmployeeTest.cpp
                 ../src/Account/Account.cpp
                 ../src/Employee/Employee.cpp
                 ../src/logger/Logger.cpp
@@ -70,7 +70,7 @@ add_custom_command(TARGET lcov
     COMMAND echo "-- Passing lcov tool under code coverage"
     COMMAND lcov -rc lcov_branch_coverage=1 --capture --directory ../ --output-file lcoverage/temp.info
     # command to remove the non-wanted sources
-    COMMAND lcov --rc lcov_branch_coverage=1 --remove lcoverage/temp.info "/usr/local/include/gtest/*" "/usr/local/include/gtest/internal/*" "*/usr/include/*" "*test/src/*" --output-file lcoverage/coverage.info
+    COMMAND lcov --rc lcov_branch_coverage=1 --remove lcoverage/temp.info "/usr/local/include/gtest/*" "/usr/local/include/gmock/*" "/usr/local/include/gtest/internal/*" "/usr/local/include/gmock/internal/*" "*/usr/include/*" "*test/src/*" --output-file lcoverage/coverage.info
     COMMAND echo "-- Generating HTML output files"
     COMMAND genhtml --rc genhtml_branch_coverage=1 lcoverage/coverage.info --output-directory lcoverage
     )

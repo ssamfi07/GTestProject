@@ -1,5 +1,5 @@
-Gheorghe 432.23
-Amalia 4354.43
-Gica 2356.54
-Ana 65434.65
-Ion 8743.54
+Gheorghe 432.23 0
+Amalia 4354.43 65.45
+Gica 2356.54 543.54
+Ana 65434.65 0
+Ion 8743.54 543.4

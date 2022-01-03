@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
+#include <stdexcept>
 #include "Employee.hpp"
+#include "MockAccount.hpp"
 
 // add stub and mocking
 
@@ -9,13 +11,14 @@ namespace gtest
 class EmployeeTest : public::testing::Test
 {
     protected:
-        Staff* employee_;
+        std::shared_ptr<Employee> employee_;
+        std::shared_ptr<MockAccount> accountMock_;
 
         virtual ~EmployeeTest(){}
 
         virtual void SetUp() override
         {
-            employee_ = new Staff("Gigi", 5435.54);
+            accountMock_ = std::make_shared<MockAccount>();
         }
 
         virtual void TearDown()
@@ -23,15 +26,23 @@ class EmployeeTest : public::testing::Test
         }
 };
 
-TEST_F(EmployeeTest, display_employee)
+TEST_F(EmployeeTest, createEmptyEmployee)
 {
+    employee_ = std::make_shared<Employee>();
+    // employee_->display();
+}
+
+TEST_F(EmployeeTest, displayEmployee)
+{
+    employee_ = std::make_shared<Employee>("Gigel", 432.43, accountMock_);
     employee_->display();
 }
 
-TEST_F(EmployeeTest, assign_operator)
+TEST_F(EmployeeTest, addSalary)
 {
-    Staff employee = *employee_;
-    EXPECT_EQ(employee, *employee_);
+    employee_ = std::make_shared<Employee>("Gigel", 432.43, accountMock_);
+    EXPECT_CALL(*accountMock_, Deposit(432.43)).Times(1);
+    employee_->addSalary();
 }
 
 } // namespace gtest

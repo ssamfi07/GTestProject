@@ -1,28 +1,29 @@
+#include <memory>
+
 #include "Employee.hpp"
 #include "Logger.hpp"
 
-Staff::Staff(): 
+Employee::Employee(): 
 employeeId_(boost::uuids::random_generator()()),
 employeeName_(""),
 salary_(0.0f)
 {}
 
-Staff::Staff(std::string employeeName, float salary):
+Employee::Employee(std::string employeeName, float salary, std::shared_ptr<bank::IAccount> account):
 employeeId_(boost::uuids::random_generator()()),
 employeeName_(employeeName),
-salary_(salary)
+salary_(salary),
+account_(account)
 {
 }
 
-void Staff::operator =(Staff s1)
+void Employee::display()
 {
-    employeeId_ = s1.employeeId_;
-    employeeName_ = s1.employeeName_;
-    salary_ = s1.salary_;
+    LOG_INFO << "EmployeeId: " << Employee::employeeId_ << "\tName: " << Employee::employeeName_ 
+            << "\tSalary: " << Employee::salary_;
 }
 
-void Staff::display()
+void Employee::addSalary()
 {
-    LOG_INFO << "Employee Id : " << Staff::employeeId_ << "Name : " << Staff::employeeName_ 
-            << "Salary : " << Staff::salary_;
+    account_->Deposit(salary_);
 }
